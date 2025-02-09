@@ -29,9 +29,11 @@ def delete_student(student_id):  # noqa: E501
     """
     try:
         result = delete(student_id)
-        if result == 'not found':
-            return 'Student not found', 404
-        return 'Student successfully deleted', 200
+
+        if "status_code" in result and "error_message" in result:
+            return result["error_message"], result["status_code"]
+
+        return result["data"], 200
     except Exception as e:
         return str(e), 500
 
@@ -47,8 +49,11 @@ def get_student_by_id(student_id):  # noqa: E501
     """
     try:
         result = get_by_id(student_id)
-        if result == 'not found':
-            return 'Student not found', 404
-        return result, 200
+
+        if "status_code" in result and "error_message" in result:
+            return result["error_message"], result["status_code"]
+
+        return result["data"], 200
+
     except Exception as e:
         return str(e), 500

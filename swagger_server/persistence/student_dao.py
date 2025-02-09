@@ -25,28 +25,28 @@ class StudentDAO:
 
     def get_by_id(self, student_id):
         if not student_id:
-            return "Invalid provided student_id", 400
+            return {"error_message": "Invalid provided student_id", "status_code": 400}
 
         student = self.collection.find_one({"_id": ObjectId(student_id)})
         if not student:
-            return "not found", 404
+            return {"error_message": "Student not found", "status_code": 404}
 
         # ObjectID can not be natively JSON serialized
         student["_id"] = str(student["_id"])
-        return student
+        return {"data": student, "status_code": 200}
 
     def delete(self, student_id):
         try:
             student_id = ObjectId(student_id)
         except Exception as e:
-            return "Invalid provided student_id", 400
+            return {"error_message": "Invalid provided student_id", "status_code": 400}
 
         student = self.collection.find_one({"_id": student_id})
         if not student:
-            return "not found", 404
+            return {"error_message": "not found", "status_code": 404}
 
         self.collection.delete_one({"_id": student_id})
 
         # ObjectID can not be natively JSON serialized
         student["_id"] = str(student["_id"])
-        return student
+        return {"data": student, "status_code": 200}
