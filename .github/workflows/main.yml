@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Run docker-compose
       run: |
-          REPO_NAME=$REPO_NAME IMAGE_NAME=$IMAGE_NAME docker-compose up -d
+          REPO_NAME=$REPO_NAME IMAGE_NAME=$IMAGE_NAME docker compose up -d
           docker ps
           sleep 5
 
