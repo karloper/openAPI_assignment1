@@ -31,7 +31,7 @@ class StudentDAO:
         if not student:
             return "not found", 404
 
-        # ObjectID can not be natively not JSON serializable
+        # ObjectID can not be natively JSON serialized
         student["_id"] = str(student["_id"])
         return student
 
@@ -47,6 +47,6 @@ class StudentDAO:
 
         self.collection.delete_one({"_id": student_id})
 
-        # ObjectID can not be natively not JSON serializable
+        # ObjectID can not be natively JSON serialized
         student["_id"] = str(student["_id"])
         return student
